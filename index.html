@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   
@@ -160,7 +159,6 @@
 </head>
 <body class="vsc-initialized">
   <div class="input-box" id="input-box" style="text-align: center;">
-  <div><button onclick="mui.plusReady()">开始扫码</button></div>
   </div>
 	<div class="content" id="content" style="display: none;">
     <p class="topic">
@@ -238,69 +236,6 @@
     document.getElementById("bcid").style.height= height; 
 
     document.getElementById("bcid").style.width= width;
-
-    scan = null;//扫描对象 
-
-    mui.plusReady(function () {  //通过mui初始化扫描
-
-    mui.init(); 
-      startRecognize(); 
-    }); 
-
-    function startRecognize(){  //开启扫描
-
-      try{ 
-        var filter; 
-        var styles = {frameColor: "#29E52C",scanbarColor: "#29E52C",background: ""} 
-        scan = new plus.barcode.Barcode('bcid',filter,styles); 
-        scan.onmarked = onmarked;  
-        scan.onerror = onerror;  //扫描错误
-        scan.start(); 
-        var flag = false; 
-        document.getElementById("turnTheLight").addEventListener('tap',function(){ 
-          if(flag == false){ 
-            scan.setFlash(true); 
-            flag = true; 
-          }else{ 
-            scan.setFlash(false); 
-            flag = false; 
-          } 
-        }); 
-      }catch(e){ 
-        alert("出现错误啦:\n"+e); 
-      } 
-
-    }; 
-
-    function onerror(e){
-      alert(e); 
-    }; 
-
-    function onmarked( type, result ){
-      var text = ''; 
-      switch(type){ //QR,EAN13,EAN8都是二维码的一种编码格式,result是返回的结果
-        case plus.barcode.QR: 
-          text = 'QR: '; 
-          break; 
-        case plus.barcode.EAN13: 
-          text = 'EAN13: '; 
-          break; 
-        case plus.barcode.EAN8: 
-          text = 'EAN8: '; 
-          break; 
-      } 
-      alert( text + " : "+ result ); 
-    };   
-
-    function scanPicture() {  //可以直接识别二维码图片
-      plus.gallery.pick(function(path){ 
-      plus.barcode.scan(path,onmarked,function(error){ 
-        plus.nativeUI.alert( "无法识别此图片" ); 
-      }); 
-      },function(err){ 
-        plus.nativeUI.alert("Failed: "+err.message); 
-      }); 
-      }
   </script>
 
 </body><div style="all: initial;"><div></div></div></html>
